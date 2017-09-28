@@ -1,0 +1,30 @@
+
+<h1>New Appointment</h1>
+<div id="form">
+    <form (submit)="addAppointment()" #form="ngForm">
+      <label for="date">Date:</label>
+      <input type="date" name="date" required [(ngModel)]='appointment.date' #date='ngModel' min="{{now | date:'yyyy-MM-dd'}}"/>
+      <div class="errors" *ngIf="date.invalid && (date.dirty || date.touched)">
+        <div class="errors" *ngIf="date?.errors.required">required.</div>
+      </div>
+      <br>
+      
+      <label for="time">Time</label>
+      <input type="time" name="time" rows="2" required [(ngModel)]='appointment.time' #time='ngModel' min="08:00:00" max="17:00:00"/>
+      <div class="errors" *ngIf="time.invalid && (time.dirty || time.touched)">
+          <div class="errors" *ngIf="time?.errors.min || time?.errors.max">time needs to be between 8am and 5pm</div>
+        <div class="errors" *ngIf="time?.errors.required">required.</div>
+      </div>
+      <br>      
+
+      <label for="complain">Complain</label>
+      <textarea name="complain" rows="2" required minlength="10" [(ngModel)]='appointment.complain' #complain='ngModel'><textarea name="" id="" cols="30" rows="10"></textarea>
+      <div class="errors" *ngIf="complain.invalid && (complain.dirty || complain.touched)">
+        <div class="errors" *ngIf="complain?.errors.required">required.</div>
+        <div class="errors" *ngIf="complain?.errors.minlength">should be at least 10 characters long.</div>
+      </div>
+      <br>     
+      <button [routerLink]="['/home']">Cancel</button>      
+      <button type="submit" [disabled]="form.invalid">Add Appointment</button>      
+    </form>  
+  </div>

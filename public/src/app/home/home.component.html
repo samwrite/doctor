@@ -1,0 +1,26 @@
+<h1>Hi {{name}}</h1>
+
+<p>
+  Doctor's Appointments:
+</p>
+ 
+    <a href='/' (click)="logout()">Logout</a>
+
+  <div class="search"><label>Search</label> <input type="text" id="search" name="searchBar" class="searchBar" [(ngModel)]="searchStr"></div>
+  
+  <div id="appointments">
+    <table class="table table-striped">
+        <tr>
+          <th>Date</th>
+          <th>Time</th> 
+          <th>Patient Name</th>
+          <th>Complain</th>
+        </tr>
+        <tr *ngFor="let a of allAppointments | filter:searchStr | sort: 'desc'">
+            <td>{{a.date | date: 'mediumDate'}}</td>
+            <td>{{a.time}}</td>
+            <td>{{a.patient}}</td>
+            <td>{{a.complain}} <button *ngIf="name == a.patient" (click)="delete(a)">Delete</button></td>  
+          </tr>
+      </table></div>
+      <button [routerLink]="['/add']">Add New Appointment</button>
